@@ -156,23 +156,6 @@ class Alignment:
             count=scores.count(i)
             dist.append((i,count))
         return dist
-
-#    def __DPmatrix_maxscore_NP(self,U,V):
-#        U=" "+ U
-#        V=" "+ V
-#        max_score=0
-#        M=np.array([[0]*len(V) for _ in range(2)])
-#        for i,j in itertools.product(range(1,len(U)),range(1,len(V))):                     
-#            c1=M[0,j-1]+self.__cost(U[i],V[j])
-#            c2=M[0,j]+self.__cost.indel
-#            c3=M[1,j-1]+self.__cost.indel
-#            M[1,j]=max(c1,c2,c3,0)
-#            if M[1,j]>=max_score:
-#                max_score=M[1,j]
-#            if j==len(V)-1:
-#                M = np.delete(M,0,0)
-#                M = np.vstack([M,[0]*len(V)])
-#        return max_score
     
     def __DPmatrix_maxscore(self,U,V):
         U=" "+ U
