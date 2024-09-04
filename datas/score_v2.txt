@@ -1,0 +1,8 @@
+# costs values
+identity : 2
+substitution : -1
+indel : -2
+
+gap_open : -1
+gap_ext : -0.5
+alternative_match : 0
