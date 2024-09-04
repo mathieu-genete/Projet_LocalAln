@@ -371,39 +371,6 @@ class Alignment:
         self.__aln_stats['similarity']+=self.__aln_stats['identity']
         return out,(i,j)
     
-    def __align_traceback_stack(self):
-        U=" "+ self.__SeqU.seq
-        V=" "+ self.__SeqV.seq
-        out=[]
-        stack=[self.__max_index]
-        
-        while len(stack)>0:
-            i,j=stack.pop()
-            if i>0 and j>0:
-                if self.__matrix[i][j]==self.__matrix[i-1][j-1]+self.__cost(U[i],V[j]):
-                    stack.append((i-1,j-1))
-                    if self.__cost(U[i],V[j])==self.__cost.identity:
-                        out=[(U[i],':',V[j])]+out
-                        self.__aln_stats['identity']+=1
-                    else:
-                        if self.__cost.intersect_IUPAC(U[i],V[j])>0:
-                            out=[(U[i],'.',V[j])]+out
-                            self.__aln_stats['similarity']+=1
-                        else:
-                            out=[(U[i],' ',V[j])]+out
-                elif self.__matrix[i][j]==self.__matrix[i-1][j]+self.__cost.indel:
-                    stack.append((i-1,j))
-                    out=[(U[i],' ','-')]+out
-                    self.__aln_stats['gaps']+=1
-                elif self.__matrix[i][j]==self.__matrix[i][j-1]+self.__cost.indel:
-                    stack.append((i,j-1))
-                    out=[('-',' ',V[j])]+out
-                    self.__aln_stats['gaps']+=1
-                    
-        self.__aln_stats['length']=len(out)
-        self.__aln_stats['similarity']+=self.__aln_stats['identity']
-        return out,(i,j)
-    
     def __print_Aln(self,outAln,min_index,lineSize,outfile=""):
         
         #{'identity':0,'similarity':0,'gaps':0,'length':0}
